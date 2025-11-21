@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+  <section class="card">
+    <h2>Shopping List</h2>
+    <form action="{{ url_for('add_item') }}" method="post" class="add-form">
+      <input type="text" name="text" placeholder="Add an item..." required>
+      <button type="submit" class="btn">Add</button>
+    </form>
+
+    {% if items %}
+      <ul class="items">
+        {% for item in items %}
+          <li class="item {% if item.done %}done{% endif %}">
+            <form method="post"
+                  action="{{ url_for('toggle_item', item_id=item.id) }}"
+                  class="item-toggle">
+              <button type="submit" class="checkbox">
+                {% if item.done %}✓{% else %}&nbsp;{% endif %}
+              </button>
+            </form>
+            <div class="item-text">
+              <div>{{ item.text }}</div>
+              <small class="meta">
+                added by {{ item.added_by }}
+                {% if item.done %}
+                  · done by {{ item.done_by }}
+                {% endif %}
+              </small>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+
+      <form action="{{ url_for('clear_done') }}" method="post" class="clear-form">
+        <button type="submit" class="btn btn-secondary">
+          Clear completed items
+        </button>
+      </form>
+    {% else %}
+      <p>No items yet. Add something above.</p>
+    {% endif %}
+  </section>
+{% endblock %}

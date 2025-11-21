@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="card">
+    <h2>Who are you?</h2>
+    <p>Just enter a name so everyone knows who added what. No passwords.</p>
+    <form method="post">
+      <label for="name">Your name</label>
+      <input type="text" id="name" name="name" required autofocus>
+      <button type="submit" class="btn">Continue</button>
+    </form>
+  </div>
+{% endblock %}
